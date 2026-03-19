@@ -1,9 +1,9 @@
 export type NewAuctionDTO = {
   name: string;
-  startPrice: number;
+  price: number;
 };
 
-/* export type UpdatePlayerDTO = {
-    name: string;
-    jersey: number;
-} */
+export type UpdateAuctionDTO = {
+  name: string;
+  price: number;
+};

@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import * as data from "../data/mockDatabase";
-import { NewAuctionDTO } from "../DTOs/AuctionDTO";
+import { NewAuctionDTO, UpdateAuctionDTO } from "../DTOs/AuctionDTO";
 
 const auctionRouter = Router();
 
@@ -123,7 +123,7 @@ auctionRouter.post("/", async (req: Request, res: Response) => {
   const newAuction = await saveNewAuction(
     /* <--SKRIV DENNA FUNKTION */
     newAuctionDTO.name,
-    newAuctionDTO.startPrice,
+    newAuctionDTO.price,
   );
   res.status(201).json(newAuction);
 });
@@ -181,7 +181,7 @@ auctionRouter.put("/:id", async (req: Request, res: Response) => {
   const updatedAuction = await updateAuction(
     auctionId,
     updateAuctionDTO.name,
-    updateAuctionDTO.startPrice,
+    updateAuctionDTO.price,
   );
   return res.status(200).json(updatedAuction);
 });
