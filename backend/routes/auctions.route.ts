@@ -29,13 +29,28 @@ const auctionRouter = Router();
  *                 properties:
  *                   id:
  *                     type: number
- *                     example: 1
- *                   name:
+ *                     example: 0
+ *                   title:
  *                     type: string
- *                     example: Schysst film
+ *                     example: Event Horizon
+ *                   year:
+ *                     type: number
+ *                     example: 1997
+ *                   description:
+ *                     type: string
+ *                     example: A rescue crew is tasked with investigating the mysterious reappearance of a spaceship that had been lost for seven years.
  *                   minprice:
  *                     type: number
- *                     example: 10
+ *                     example: 1
+ *                   current_price:
+ *                     type: number
+ *                     example: 9999999
+ *                   image_url:
+ *                     type: string
+ *                     example: cool-url
+ *                   end_time:
+ *                     type: date
+ *                     example: 2060-01-01 00:00:00
  *           */
 
 // --------------------------------------------------------------------------
@@ -70,13 +85,28 @@ auctionRouter.get("/api/auctions", async (req: Request, res: Response) => {
  *               properties:
  *                   id:
  *                     type: number
- *                     example: 1
- *                   name:
+ *                     example: 0
+ *                   title:
  *                     type: string
- *                     example: Schysst film
- *                   price:
+ *                     example: Event Horizon
+ *                   year:
  *                     type: number
- *                     example: 44
+ *                     example: 1997
+ *                   description:
+ *                     type: string
+ *                     example: A rescue crew is tasked with investigating the mysterious reappearance of a spaceship that had been lost for seven years.
+ *                   minprice:
+ *                     type: number
+ *                     example: 1
+ *                   current_price:
+ *                     type: number
+ *                     example: 9999999
+ *                   image_url:
+ *                     type: string
+ *                     example: cool-url
+ *                   end_time:
+ *                     type: date
+ *                     example: 2060-01-01 00:00:00
  *       404:
  *         description: Auction not found
  *           */
@@ -108,12 +138,27 @@ auctionRouter.get("/api/auctions/:id", async (req: Request, res: Response) => {
  *           schema:
  *             type: object
  *             properties:
- *               name:
- *                 type: string
- *                 example: Mulan
- *               price:
- *                 type: number
- *                 example: 999
+ *                   title:
+ *                     type: string
+ *                     example: Event Horizon
+ *                   year:
+ *                     type: number
+ *                     example: 1997
+ *                   description:
+ *                     type: string
+ *                     example: A rescue crew is tasked with investigating the mysterious reappearance of a spaceship that had been lost for seven years.
+ *                   minprice:
+ *                     type: number
+ *                     example: 1
+ *                   current_price:
+ *                     type: number
+ *                     example: 9999999
+ *                   image_url:
+ *                     type: string
+ *                     example: cool-url
+ *                   end_time:
+ *                     type: date
+ *                     example: 2060-01-01 00:00:00
  *     responses:
  *       201:
  *         description: Auction created successfully
@@ -122,21 +167,33 @@ auctionRouter.get("/api/auctions/:id", async (req: Request, res: Response) => {
  *             schema:
  *               type: object
  *               properties:
- *                   id:
+ *                   title:
+ *                     type: string
+ *                     example: Event Horizon
+ *                   year:
+ *                     type: number
+ *                     example: 1997
+ *                   description:
+ *                     type: string
+ *                     example: A rescue crew is tasked with investigating the mysterious reappearance of a spaceship that had been lost for seven years.
+ *                   minprice:
  *                     type: number
  *                     example: 1
- *                   name:
- *                     type: string
- *                     example: Mulan
- *                   jersey:
+ *                   current_price:
  *                     type: number
- *                     example: 999
+ *                     example: 9999999
+ *                   image_url:
+ *                     type: string
+ *                     example: cool-url
+ *                   end_time:
+ *                     type: date
+ *                     example: 2060-01-01 00:00:00
  *           */
 
 // --------------------------------------------------------------------------
 // ADD NEW AUCTION:
 // --------------------------------------------------------------------------
-auctionRouter.post("/", async (req: Request, res: Response) => {
+auctionRouter.post("/api/auctions", async (req: Request, res: Response) => {
   console.log(req.body);
   const newAuctionDTO: NewAuctionDTO = req.body as NewAuctionDTO;
   const newAuction = await saveNewAuction(
@@ -172,12 +229,30 @@ auctionRouter.post("/", async (req: Request, res: Response) => {
  *           schema:
  *             type: object
  *             properties:
- *               name:
- *                 type: string
- *                 example: The Thing
- *               startPrice:
- *                 type: number
- *                 example: 10
+ *                   id:
+ *                     type: number
+ *                     example: 0
+ *                   title:
+ *                     type: string
+ *                     example: Event Horizon
+ *                   year:
+ *                     type: number
+ *                     example: 1997
+ *                   description:
+ *                     type: string
+ *                     example: A rescue crew is tasked with investigating the mysterious reappearance of a spaceship that had been lost for seven years.
+ *                   minprice:
+ *                     type: number
+ *                     example: 1
+ *                   current_price:
+ *                     type: number
+ *                     example: 9999999
+ *                   image_url:
+ *                     type: string
+ *                     example: cool-url
+ *                   end_time:
+ *                     type: date
+ *                     example: 2060-01-01 00:00:00
  *     responses:
  *       200:
  *         description: Auction updated successfully
@@ -188,19 +263,34 @@ auctionRouter.post("/", async (req: Request, res: Response) => {
  *               properties:
  *                   id:
  *                     type: number
- *                     example: 1
- *                   name:
+ *                     example: 0
+ *                   title:
  *                     type: string
- *                     example: The Thing
- *                   startPrice:
+ *                     example: Event Horizon
+ *                   year:
  *                     type: number
- *                     example: 10
+ *                     example: 1997
+ *                   description:
+ *                     type: string
+ *                     example: A rescue crew is tasked with investigating the mysterious reappearance of a spaceship that had been lost for seven years.
+ *                   minprice:
+ *                     type: number
+ *                     example: 1
+ *                   current_price:
+ *                     type: number
+ *                     example: 9999999
+ *                   image_url:
+ *                     type: string
+ *                     example: cool-url
+ *                   end_time:
+ *                     type: date
+ *                     example: 2060-01-01 00:00:00
  *           */
 
 // --------------------------------------------------------------------------
 // UPDATE AUCTION:
 // --------------------------------------------------------------------------
-auctionRouter.put("/:id", async (req: Request, res: Response) => {
+auctionRouter.put("/api/auctions/:id", async (req: Request, res: Response) => {
   const auctionId = parseInt(req.params.id as string);
   const updateAuctionDTO = req.body as UpdateAuctionDTO;
   const updatedAuction = await updateAuction(
@@ -238,11 +328,14 @@ auctionRouter.put("/:id", async (req: Request, res: Response) => {
 // --------------------------------------------------------------------------
 // DELETE AUCTION:
 // --------------------------------------------------------------------------
-auctionRouter.delete("/:id", async (req: Request, res: Response) => {
-  const auctionId = parseInt(req.params.id as string);
-  await deleteAuction(auctionId);
-  res.status(204).send();
-});
+auctionRouter.delete(
+  "/api/auctions/:id",
+  async (req: Request, res: Response) => {
+    const auctionId = parseInt(req.params.id as string);
+    await deleteAuction(auctionId);
+    res.status(204).send();
+  },
+);
 
 //---------------------------------------------------------------------------
 

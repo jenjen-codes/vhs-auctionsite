@@ -13,12 +13,18 @@ export interface Auction extends RowDataPacket {
   created_at: Date;
 }
 
+// --------------------------------------------------------------------------
+// GET ALL AUCTIONS:
+// --------------------------------------------------------------------------
 export async function findAllAuctions(): Promise<Auction[]> {
   let conn = await connection;
   const [rows] = await conn.query<Auction[]>("SELECT * FROM auction_items", []);
   return rows;
 }
 
+// --------------------------------------------------------------------------
+// GET AUCTION BY ID:
+// --------------------------------------------------------------------------
 export async function findAuctionById(id: number): Promise<Auction | null> {
   let conn = await connection;
   const [rows] = await conn.query<Auction[]>(
@@ -28,6 +34,9 @@ export async function findAuctionById(id: number): Promise<Auction | null> {
   return rows[0] || null;
 }
 
+// --------------------------------------------------------------------------
+// SAVE NEW ACTION:
+// --------------------------------------------------------------------------
 export async function saveNewAuction(
   title: string,
   year: number,
@@ -50,6 +59,9 @@ export async function saveNewAuction(
   return auction;
 }
 
+// --------------------------------------------------------------------------
+// UPDATE AUCTION:
+// --------------------------------------------------------------------------
 export async function updateAuction(
   id: number,
   title: string,
@@ -78,6 +90,9 @@ export async function updateAuction(
   return updatedAuction;
 }
 
+// --------------------------------------------------------------------------
+// DELETE AUCTION:
+// --------------------------------------------------------------------------
 export async function deleteAuction(id: number): Promise<void> {
   let conn = await connection;
   await conn.query("DELETE FROM auction_items WHERE id = ?", [id]);

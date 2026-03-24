@@ -8,6 +8,8 @@ import auctionRouter from "./routes/auctions.route";
 const app = express();
 const server = http.createServer(app);
 
+app.use(express.json());
+
 // --------------------------------------------------------------------------
 // SWAGGER:
 // --------------------------------------------------------------------------
