@@ -4,6 +4,8 @@ import { NewAuctionDTO, UpdateAuctionDTO } from "../DTOs/AuctionDTO";
 
 const auctionRouter = Router();
 
+// --------------------------------------------------------------------------
+
 /**
  * @swagger
  * /api/auctions:
@@ -36,6 +38,8 @@ const auctionRouter = Router();
 auctionRouter.get("/api/auctions", (req, res) => {
   res.json(data.auctions);
 });
+
+// --------------------------------------------------------------------------
 
 /**
  * @swagger
@@ -76,6 +80,8 @@ auctionRouter.get("/api/auctions", (req, res) => {
 auctionRouter.get("/api/auctions/:id", (req, res) => {
   res.json(data.auctions.filter((auction) => auction.id === req.params.id)[0]);
 });
+
+// --------------------------------------------------------------------------
 
 /**
  * @swagger
@@ -127,6 +133,8 @@ auctionRouter.post("/", async (req: Request, res: Response) => {
   );
   res.status(201).json(newAuction);
 });
+
+// --------------------------------------------------------------------------
 
 /**
  * @swagger
@@ -186,6 +194,8 @@ auctionRouter.put("/:id", async (req: Request, res: Response) => {
   return res.status(200).json(updatedAuction);
 });
 
+// --------------------------------------------------------------------------
+
 /** * @swagger
  * /api/auctions/{id}:
  *   delete:
@@ -213,4 +223,5 @@ auctionRouter.delete("/:id", async (req: Request, res: Response) => {
 });
 
 //---------------------------------------------------------------------------
+
 export default auctionRouter;
