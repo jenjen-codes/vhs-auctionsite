@@ -1,6 +1,12 @@
 import { Router, Request, Response } from "express";
-import * as data from "../data/mockDatabase";
-import { NewAuctionDTO, UpdateAuctionDTO } from "../DTOs/AuctionDTO";
+import { NewAuctionDTO, UpdateAuctionDTO } from "../DTOs/auctionDTO";
+import {
+  findAllAuctions,
+  findAuctionById,
+  deleteAuction,
+  saveNewAuction,
+  updateAuction,
+} from "../models/auctions";
 
 const auctionRouter = Router();
 
@@ -35,8 +41,9 @@ const auctionRouter = Router();
 // --------------------------------------------------------------------------
 // GET ALL AUCTIONS:
 // --------------------------------------------------------------------------
-auctionRouter.get("/api/auctions", (req, res) => {
-  res.json(data.auctions);
+auctionRouter.get("/api/auctions", async (req: Request, res: Response) => {
+  const auctions = await findAllAuctions();
+  res.json(auctions);
 });
 
 // --------------------------------------------------------------------------
@@ -77,8 +84,14 @@ auctionRouter.get("/api/auctions", (req, res) => {
 // --------------------------------------------------------------------------
 // GET AUCTION BY ID:
 // --------------------------------------------------------------------------
-auctionRouter.get("/api/auctions/:id", (req, res) => {
-  res.json(data.auctions.filter((auction) => auction.id === req.params.id)[0]);
+auctionRouter.get("/api/auctions/:id", async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id as string);
+  const auction = await findAuctionById(id);
+  if (auction) {
+    res.status(200).json(auction);
+  } else {
+    res.status(404).json({ message: "Auction not found." });
+  }
 });
 
 // --------------------------------------------------------------------------
@@ -127,9 +140,13 @@ auctionRouter.post("/", async (req: Request, res: Response) => {
   console.log(req.body);
   const newAuctionDTO: NewAuctionDTO = req.body as NewAuctionDTO;
   const newAuction = await saveNewAuction(
-    /* <--SKRIV DENNA FUNKTION */
-    newAuctionDTO.name,
-    newAuctionDTO.price,
+    newAuctionDTO.title,
+    newAuctionDTO.year,
+    newAuctionDTO.description,
+    newAuctionDTO.minprice,
+    newAuctionDTO.current_price,
+    newAuctionDTO.image_url,
+    newAuctionDTO.end_time,
   );
   res.status(201).json(newAuction);
 });
@@ -188,8 +205,13 @@ auctionRouter.put("/:id", async (req: Request, res: Response) => {
   const updateAuctionDTO = req.body as UpdateAuctionDTO;
   const updatedAuction = await updateAuction(
     auctionId,
-    updateAuctionDTO.name,
-    updateAuctionDTO.price,
+    updateAuctionDTO.title,
+    updateAuctionDTO.year,
+    updateAuctionDTO.description,
+    updateAuctionDTO.minprice,
+    updateAuctionDTO.current_price,
+    updateAuctionDTO.image_url,
+    updateAuctionDTO.end_time,
   );
   return res.status(200).json(updatedAuction);
 });

@@ -1,0 +1,84 @@
+import { RowDataPacket } from "mysql2/promise";
+import { connection } from "../data/db";
+
+export interface Auction extends RowDataPacket {
+  id: number;
+  title: string;
+  year: number;
+  description: string;
+  minprice: number;
+  current_price: number;
+  image_url: string;
+  end_time: Date;
+  created_at: Date;
+}
+
+export async function findAllAuctions(): Promise<Auction[]> {
+  let conn = await connection;
+  const [rows] = await conn.query<Auction[]>("SELECT * FROM auction_items", []);
+  return rows;
+}
+
+export async function findAuctionById(id: number): Promise<Auction | null> {
+  let conn = await connection;
+  const [rows] = await conn.query<Auction[]>(
+    "SELECT * FROM auction_items WHERE id = ?",
+    [id],
+  );
+  return rows[0] || null;
+}
+
+export async function saveNewAuction(
+  title: string,
+  year: number,
+  description: string,
+  minprice: number,
+  current_price: number,
+  image_url: string,
+  end_time: Date,
+): Promise<Auction> {
+  let conn = await connection;
+  const [result] = await conn.query(
+    "INSERT INTO auction_items (title, year, description, minprice, current_price, image_url, end_time) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    [title, year, description, minprice, current_price, image_url, end_time],
+  );
+  const insertId = (result as any).insertId;
+  const auction = await findAuctionById(insertId);
+  if (!auction) {
+    throw new Error("Failed to retrieve the newly created auction");
+  }
+  return auction;
+}
+
+export async function updateAuction(
+  id: number,
+  title: string,
+  year: number,
+  description: string,
+  minprice: number,
+  current_price: number,
+  image_url: string,
+  end_time: Date,
+): Promise<Auction | null> {
+  let conn = await connection;
+  await conn.query(
+    "UPDATE auction_items SET title = ?, year = ?, description = ?, minprice = ?, current_price = ?, image_url = ?, end_time = ? WHERE id = ?",
+    [
+      title,
+      year,
+      description,
+      minprice,
+      current_price,
+      image_url,
+      end_time,
+      id,
+    ],
+  );
+  const updatedAuction = await findAuctionById(id);
+  return updatedAuction;
+}
+
+export async function deleteAuction(id: number): Promise<void> {
+  let conn = await connection;
+  await conn.query("DELETE FROM auction_items WHERE id = ?", [id]);
+}
