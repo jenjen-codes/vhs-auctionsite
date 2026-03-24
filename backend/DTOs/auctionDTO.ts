@@ -1,9 +1,19 @@
 export type NewAuctionDTO = {
-  name: string;
-  price: number;
+  title: string;
+  year: number;
+  description: string;
+  minprice: number;
+  current_price: number;
+  image_url: string;
+  end_time: Date;
 };
 
 export type UpdateAuctionDTO = {
-  name: string;
-  price: number;
+  title: string;
+  year: number;
+  description: string;
+  minprice: number;
+  current_price: number;
+  image_url: string;
+  end_time: Date;
 };
