@@ -6,14 +6,4 @@ export interface Auction extends RowDataPacket{
 
 }; 
 
-// FUNKTIONER ---> 
-
-// ---- POST ----
-
-
-// ---- PUT ----
-
-
-// ---- DELETE ---- 
-
 
