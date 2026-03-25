@@ -24,7 +24,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "http://localhost:3001",
       },
     ],
   },
@@ -39,7 +39,7 @@ app.use("/", auctionRouter);
 // --------------------------------------------------------------------------
 // START THE SERVER:
 // --------------------------------------------------------------------------
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3001;
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

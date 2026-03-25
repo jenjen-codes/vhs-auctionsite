@@ -1,11 +1,97 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
+  // Server Component: fetch via Next rewrite (/api -> backend)
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        
+      <main className="flex min-h-screen w-full max-w-3xl flex-col gap-6 py-20 px-6 bg-white dark:bg-black sm:px-16">
+        <header className="flex flex-col gap-2">
+          <h1 className="text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+            Auctions
+          </h1>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            Browse available auctions and place bids in real time.
+          </p>
+        </header>
+
+        <AuctionsList />
       </main>
     </div>
+  );
+}
+
+type Auction = {
+  id: number;
+  title: string;
+  description: string;
+  minprice: number;
+  current_price: number;
+  end_time: string;
+};
+
+async function AuctionsList() {
+  const res = await fetch("/api/auctions", {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    return (
+      <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-900/40 dark:bg-red-950/40 dark:text-red-200">
+        Could not load auctions. Make sure the backend runs on{" "}
+        <span className="font-mono">localhost:3001</span>.
+      </div>
+    );
+  }
+
+  const auctions = (await res.json()) as Auction[];
+
+  if (!auctions.length) {
+    return (
+      <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950/40 dark:text-zinc-200">
+        No auctions found.
+      </div>
+    );
+  }
+
+  return (
+    <ul className="grid gap-3">
+      {auctions.map((a) => (
+        <li
+          key={a.id}
+          className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950/40 dark:hover:border-zinc-700"
+        >
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <h2 className="truncate text-base font-semibold text-zinc-900 dark:text-zinc-100">
+                {a.title}
+              </h2>
+              <p className="mt-1 line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">
+                {a.description}
+              </p>
+            </div>
+            <div className="shrink-0 text-right">
+              <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                Current
+              </div>
+              <div className="font-mono text-sm text-zinc-900 dark:text-zinc-100">
+                {a.current_price}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-3 flex items-center justify-between gap-3">
+            <div className="text-xs text-zinc-500 dark:text-zinc-400">
+              Min: <span className="font-mono">{a.minprice}</span>
+            </div>
+            <Link
+              className="text-sm font-medium text-blue-700 hover:underline dark:text-blue-300"
+              href={`/auction/${a.id}`}
+            >
+              View auction
+            </Link>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }
