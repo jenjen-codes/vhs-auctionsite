@@ -30,7 +30,8 @@ type Auction = {
 };
 
 async function AuctionsList() {
-  const res = await fetch("/api/auctions", {
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001";
+  const res = await fetch(`${apiBaseUrl}/api/auctions`, {
     cache: "no-store",
   });
 
