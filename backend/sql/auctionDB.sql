@@ -61,7 +61,7 @@ CREATE TABLE `bids` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `auction_id_idx` (`auction_id`),
-  CONSTRAINT `auction_id` FOREIGN KEY (`auction_id`) REFERENCES `bids` (`id`) ON DELETE CASCADE
+  CONSTRAINT `auction_id` FOREIGN KEY (`auction_id`) REFERENCES `auction_items` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
