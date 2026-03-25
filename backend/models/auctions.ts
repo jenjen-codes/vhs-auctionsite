@@ -97,3 +97,17 @@ export async function deleteAuction(id: number): Promise<void> {
   let conn = await connection;
   await conn.query("DELETE FROM auction_items WHERE id = ?", [id]);
 }
+
+// --------------------------------------------------------------------------
+// UPDATE CURRENT PRICE ONLY:
+// --------------------------------------------------------------------------
+export async function updateAuctionCurrentPrice(
+  id: number,
+  currentPrice: number,
+): Promise<void> {
+  const conn = await connection;
+  await conn.query("UPDATE auction_items SET current_price = ? WHERE id = ?", [
+    currentPrice,
+    id,
+  ]);
+}

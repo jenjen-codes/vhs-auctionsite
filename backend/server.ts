@@ -5,6 +5,8 @@ import swaggerUi from "swagger-ui-express";
 import { Server } from "socket.io";
 import auctionRouter from "./routes/auctions.route";
 import { getOrCreateAuctionRoom, placeBidInRoom } from "./realtime/auctionRooms";
+import { saveBid } from "./models/bids";
+import { updateAuctionCurrentPrice } from "./models/auctions";
 /* import cors from 'cors'; */
 
 const app = express();
@@ -86,6 +88,35 @@ io.on("connection", (socket) => {
         socket.emit("bidRefused", {
           auctionId: payload.auctionId,
           reason: result.reason,
+          currentPrice: room.currentPrice,
+        });
+        return;
+      }
+
+      const auctionIdAsNumber = Number(payload.auctionId);
+      if (!Number.isInteger(auctionIdAsNumber)) {
+        socket.emit("bidRefused", {
+          auctionId: payload.auctionId,
+          reason: "Invalid auction id.",
+          currentPrice: room.currentPrice,
+        });
+        return;
+      }
+
+      try {
+        await saveBid(
+          auctionIdAsNumber,
+          result.latestBid.bidder,
+          result.latestBid.amount,
+        );
+        await updateAuctionCurrentPrice(
+          auctionIdAsNumber,
+          result.room.currentPrice,
+        );
+      } catch {
+        socket.emit("bidRefused", {
+          auctionId: payload.auctionId,
+          reason: "Could not persist bid. Please try again.",
           currentPrice: room.currentPrice,
         });
         return;
