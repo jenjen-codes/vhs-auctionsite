@@ -1,113 +1,62 @@
-import Link from "next/link";
+
+import Sidebar from "./components/Sidebar";
+import ProductFeed from "./components/ProductFeed";
+import NewsletterForm from "./components/NewsletterForm";
 
 export default function Home() {
-  // Server Component: fetch via Next rewrite (/api -> backend)
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100 font-sans">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col gap-6 bg-white py-20 px-6 sm:px-16">
-        <header className="flex flex-col gap-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
-            Auctions
-          </h1>
-          <p className="text-sm text-zinc-600">
-            Browse available auctions and place bids in real time.
-          </p>
-        </header>
+    <div className="outer-container">
+      <main className="inner-container">
 
-        <AuctionsList />
+        <Sidebar>
+
+          <p><span className="dropcap">Welcome to Auction-flix </span> a marketplace dedicated to collectors, enthusiasts, and nostalgia seekers who appreciate the charm of VHS.
+
+            From rare horror tapes and obscure straight-to-video releases to beloved classics worn from repeat viewings, Auction-flix is built for those who know that physical media still has a story to tell.</p>
+
+
+          <img src="/vhs-han-small.png" alt="Auction-flix logo" className="img" />
+          <NewsletterForm />
+          <h3>Contact Us</h3>
+          <p>Have questions or need assistance? Reach out to our support team:</p>
+          <ul>
+            <li>Email: support@auction-flix.com</li>
+            <li>Phone: +1 (800) 123-4567</li>
+          </ul>
+          <p>Our team is available Monday to Friday, 9 AM to 5 PM EST. We look forward to assisting you!</p>
+
+        </Sidebar>
+        <ProductFeed />
+        <Sidebar>
+          <h3>Terms & Conditions </h3>
+          <ul>
+            <li>
+              <h4>Acceptance of Terms</h4>
+              <p>By accessing or using Auction-flix (&quot;the Platform&quot;), you agree to be bound by these Terms & Conditions. If you do not agree, you may not use the Platform.</p>
+            </li>
+            <li>
+              <h4>Bidding & Purchases</h4>
+              <p>All bids are binding.
+                The highest bid at auction close wins the item.
+                Buyers agree to complete payment within the specified timeframe.
+                Failure to complete a purchase may result in account restrictions.</p>
+            </li>
+            <li>
+              <h4>Payments</h4>
+              <p>Payments must be made through approved methods provided on the Platform. Auction-flix may use third-party payment processors and is not responsible for external service issues.</p>
+            </li>
+            <li>
+              <h4>Shipping & Delivery</h4>
+              <p>Sellers are responsible for shipping items within the stated timeframe.
+                Auction-flix is not liable for delays, lost shipments, or damage occurring during transit.</p>
+            </li>
+            <li>
+              <h4>Returns & Refunds</h4>
+              <p>Returns are not guaranteed and are subject to the seller’s individual policy. Buyers are encouraged to review listing details carefully before bidding.</p>
+            </li>
+          </ul>
+        </Sidebar>
       </main>
     </div>
-  );
-}
-
-type Auction = {
-  id: number;
-  title: string;
-  description: string;
-  minprice: number;
-  current_price: number;
-  image_url?: string;
-  end_time: string;
-};
-
-async function AuctionsList() {
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001";
-  const res = await fetch(`${apiBaseUrl}/api/auctions`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
-        Could not load auctions. Make sure the backend runs on{" "}
-        <span className="font-mono">localhost:3001</span>.
-      </div>
-    );
-  }
-
-  const auctions = (await res.json()) as Auction[];
-
-  if (!auctions.length) {
-    return (
-      <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-700">
-        No auctions found.
-      </div>
-    );
-  }
-
-  return (
-    <ul className="grid gap-3">
-      {auctions.map((a) => (
-        <li
-          key={a.id}
-          className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition hover:border-zinc-300"
-        >
-          <div className="flex items-start gap-4">
-            {a.image_url ? (
-              <img
-                src={a.image_url}
-                alt={a.title}
-                className="h-40 w-28 shrink-0 rounded-lg object-cover"
-              />
-            ) : (
-              <div className="h-40 w-28 shrink-0 rounded-lg bg-zinc-100" />
-            )}
-
-            <div className="min-w-0 flex-1">
-              <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <h2 className="truncate text-base font-semibold text-zinc-900">
-                    {a.title}
-                  </h2>
-                  <p className="mt-1 line-clamp-3 text-sm text-zinc-600">
-                    {a.description}
-                  </p>
-                </div>
-                <div className="shrink-0 text-right">
-                  <div className="text-xs text-zinc-500">
-                    Current
-                  </div>
-                  <div className="font-mono text-sm text-zinc-900">
-                    {a.current_price}
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-3 flex items-center justify-between gap-3">
-                <div className="text-xs text-zinc-500">
-                  Min: <span className="font-mono">{a.minprice}</span>
-                </div>
-                <Link
-                  className="text-sm font-medium text-blue-700 hover:underline"
-                  href={`/auction/${a.id}`}
-                >
-                  View auction
-                </Link>
-              </div>
-            </div>
-          </div>
-        </li>
-      ))}
-    </ul>
   );
 }

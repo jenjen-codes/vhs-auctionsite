@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { getAuction } from "../../lib/api";
 import Room from "./room";
+import Sidebar from "@/app/components/Sidebar";
+import NewsletterForm from "@/app/components/NewsletterForm";
 
 export default async function AuctionPage({
   params,
@@ -7,25 +10,71 @@ export default async function AuctionPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const auction = await getAuction(id);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100 px-6 font-sans">
-      <main className="w-full max-w-3xl rounded-2xl border border-zinc-200 bg-white p-6">
-        <div className="flex items-center justify-between gap-4">
-          <h1 className="min-w-0 truncate text-2xl font-semibold text-zinc-900">
-            Auction room
-          </h1>
-          <Link
-            className="shrink-0 text-sm font-medium text-blue-700 hover:underline"
-            href="/"
-          >
+    <div className="auction-page-shell">
+      <Sidebar>
+
+        <p><span className="dropcap">Welcome to Auction-flix </span> a marketplace dedicated to collectors, enthusiasts, and nostalgia seekers who appreciate the charm of VHS.
+
+          From rare horror tapes and obscure straight-to-video releases to beloved classics worn from repeat viewings, Auction-flix is built for those who know that physical media still has a story to tell.</p>
+
+
+        <img src="/vhs-han-small.png" alt="Auction-flix logo" className="img" />
+        <NewsletterForm />
+        <h3>Contact Us</h3>
+        <p>Have questions or need assistance? Reach out to our support team:</p>
+        <ul>
+          <li>Email: support@auction-flix.com</li>
+          <li>Phone: +1 (800) 123-4567</li>
+        </ul>
+        <p>Our team is available Monday to Friday, 9 AM to 5 PM EST. We look forward to assisting you!</p>
+
+      </Sidebar>
+
+      <main className="auction-page-card">
+        <div className="auction-page-header">
+          <div>
+            <p className="auction-page-kicker">Live auction room</p>
+            <h1 className="auction-page-title">{auction.title}</h1>
+          </div>
+          <Link className="button auction-back-button" href="/">
             Back
           </Link>
         </div>
 
-        <Room auctionId={id} />
+        <Room auctionId={id} initialAuction={auction} />
       </main>
+      <Sidebar>
+        <h3>Terms & Conditions </h3>
+        <ul>
+          <li>
+            <h4>Acceptance of Terms</h4>
+            <p>By accessing or using Auction-flix (&quot;the Platform&quot;), you agree to be bound by these Terms & Conditions. If you do not agree, you may not use the Platform.</p>
+          </li>
+          <li>
+            <h4>Bidding & Purchases</h4>
+            <p>All bids are binding.
+              The highest bid at auction close wins the item.
+              Buyers agree to complete payment within the specified timeframe.
+              Failure to complete a purchase may result in account restrictions.</p>
+          </li>
+          <li>
+            <h4>Payments</h4>
+            <p>Payments must be made through approved methods provided on the Platform. Auction-flix may use third-party payment processors and is not responsible for external service issues.</p>
+          </li>
+          <li>
+            <h4>Shipping & Delivery</h4>
+            <p>Sellers are responsible for shipping items within the stated timeframe.
+              Auction-flix is not liable for delays, lost shipments, or damage occurring during transit.</p>
+          </li>
+          <li>
+            <h4>Returns & Refunds</h4>
+            <p>Returns are not guaranteed and are subject to the seller’s individual policy. Buyers are encouraged to review listing details carefully before bidding.</p>
+          </li>
+        </ul>
+      </Sidebar>
     </div>
   );
 }
-
