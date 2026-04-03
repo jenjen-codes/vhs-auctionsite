@@ -1,0 +1,124 @@
+.product-feed-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: left;
+    gap: 20px;
+    padding: 0px;
+    width: 100%;
+}
+
+.product-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    border-bottom: 1px solid black;
+    width: 100%;
+}
+
+.red-dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.product-feed-title {
+    font-size: 1.5rem;
+    padding: 5px 5px;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgb(220, 220, 220);
+    padding: 20px;
+    flex: 1 1 250px;
+    gap: 15px;
+    background-color: rgb(234, 234, 234);
+    border: 3px solid rgb(234, 234, 234);
+    border-style: outset;
+}
+
+.image-wrapper {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    position: relative;
+    border: 1px solid rgb(208, 208, 208);
+    border-style: solid;
+    padding: 0px;
+}
+
+.product-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.product-title {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    justify-content: start;
+}
+
+.product-price-title {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 10px 0px;
+
+}
+
+.price-current {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    color: green;
+    padding: 5px 12px;
+    font-weight: bold;
+    border: 3px solid rgb(245, 245, 245);
+    background-color: rgb(249, 249, 249);
+    border-style: inset;
+    border-radius: 0px;
+    justify-content: end;
+}
+
+.description-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    width: 100%;
+}
+
+.product-description {
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+
+
+.bidding-button {
+    width: 100%;
+    padding: 10px 0px;
+    font-weight: bold;
+    font-size: 1rem;
+}

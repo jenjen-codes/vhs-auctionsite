@@ -1,0 +1,21 @@
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.outer-container {
+    display: flex;
+    align-items: stretch;
+    padding: 0px;
+    flex: 1;
+}
+
+.inner-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 0px;
+    width: 100%;
+    flex: 1;
+}

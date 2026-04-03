@@ -1,0 +1,185 @@
+.auction-page-shell {
+    min-height: 100vh;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    background: rgb(255, 255, 255);
+    gap: 20px
+}
+
+.auction-page-card {
+    padding: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(234, 234, 234);
+    border: 3px outset rgb(234, 234, 234);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 24px;
+}
+
+.auction-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 16px;
+    border-bottom: 1px solid black;
+    padding-bottom: 12px;
+}
+
+.auction-page-kicker {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12rem;
+}
+
+.auction-page-title {
+    font-size: 2rem;
+}
+
+.auction-back-button {
+    text-decoration: none;
+}
+
+.auction-room {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+    gap: 20px;
+}
+
+.auction-bid-form,
+.auction-bids-panel {
+    border: 3px solid rgb(234, 234, 234);
+    border-style: outset;
+    background-color: rgb(240, 240, 240);
+    padding: 16px;
+}
+
+.auction-room-image {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    position: relative;
+    border: 1px solid rgb(208, 208, 208);
+}
+
+.auction-room-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.auction-room-prices {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.auction-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border: 3px solid rgb(245, 245, 245);
+    border-style: inset;
+    background-color: rgb(249, 249, 249);
+    padding: 12px;
+    color: black;
+}
+
+.auction-stat span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: black;
+}
+
+.auction-stat strong {
+    font-size: 1.3rem;
+    color: green;
+}
+
+.auction-stat-minimum {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+}
+
+.auction-stat-minimum div {
+    color: black;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.auction-stat-minimum .span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.auction-room-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    line-height: 1.0;
+}
+
+.auction-room-year {
+    font-weight: bold;
+}
+
+.auction-bid-form,
+.auction-bids-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: rgb(202, 202, 202);
+}
+
+.auction-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 3px solid rgb(245, 245, 245);
+    border-style: inset;
+    background-color: white;
+    font: inherit;
+}
+
+.auction-room-error {
+    grid-column: 1 / -1;
+    color: rgb(151, 0, 0);
+    font-weight: bold;
+}
+
+.auction-bids-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auction-bid-entry {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 5px 2px;
+    /* background-color: rgb(249, 249, 249); */
+    border-bottom: 1px dashed rgb(139, 139, 139);
+    /* border-style: inset; */
+}
+
+.auction-bids-empty {
+    font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+    .auction-room {
+        grid-template-columns: 1fr;
+    }
+
+    .auction-room-prices {
+        grid-template-columns: 1fr;
+    }
+
+    .auction-page-header {
+        flex-direction: column;
+    }
+}

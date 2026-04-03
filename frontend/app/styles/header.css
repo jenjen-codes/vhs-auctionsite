@@ -1,0 +1,52 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 20px;
+    background: #841c1c;
+    padding: 30px 10px 25px 30px;
+    margin: 0px;
+    border-bottom: 0px solid rgb(220, 220, 220);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: normal;
+    font-family: 'Times New Roman', Times, serif;
+    color: #fff;
+}
+
+.header h4 {
+    font-size: 1rem;
+    font-weight: normal;
+    font-family: sans-serif;
+    color: #ffffff;
+}
+
+.logo {
+    width: 280px;
+}
+
+.sub-header {
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    gap: 20px;
+    background: #ffc8c8;
+    padding: 10px 10px 15px 30px;
+    margin: 0px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0px;
+    padding-left: 20px;
+    background-color: rgb(191, 191, 191);
+}
+
+.dropcap {
+    font-weight: bold;
+    font-size: 2.1rem;
+}
