@@ -11,6 +11,7 @@ A group assignment where we built an auction site using websockets! I helped wor
   <li>Websocket.io</li>
   <li>Next.js</li>
   <li>MySQL Workbench</li>
+  <li>Swagger</li>
 </ul>
 <br>
 
