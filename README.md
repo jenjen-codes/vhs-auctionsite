@@ -6,9 +6,11 @@ A group assignment where we built an auction site using websockets! I helped wor
 <ul>
   <li>Typescript</li>
   <li>HTML/CSS</li>
+  <li>MySQL</li>
   <li>Node.js</li>
   <li>Websocket.io</li>
   <li>Next.js</li>
+  <li>MySQL Workbench</li>
 </ul>
 <br>
 
